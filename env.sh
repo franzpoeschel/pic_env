@@ -22,6 +22,12 @@ else
         python -m virtualenv "$PREFIX"
     fi
     . "$PREFIX/bin/activate"
+    for python_version in "$PREFIX/"lib{64,}/python*; do
+        if [[ ! -d "$python_version" ]]; then
+            continue
+        fi
+        export PYTHONPATH="$python_version/site-packages:$PYTHONPATH"
+    done
     export WORKDIR="$(pwd)/build"
     export LD_LIBRARY_PATH="$PREFIX/lib:$PREFIX/lib64:$LD_LIBRARY_PATH"
     # export PATH="$PREFIX/bin:$PATH"
