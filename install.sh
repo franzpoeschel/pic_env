@@ -16,7 +16,10 @@ install_adios2() {
         cd ADIOS2
         git fetch --all
     fi
-    git checkout c9335fd26244a1052f789cb56397c2572b0b89c4
+    git checkout 3d498e5c423ec3830264b1cfdf7c0182dd0bddc7
+    if [[ "$CLUSTER_NAME" = CRUSHER ]]; then
+        sed -i 's|#ifdef SST_HAVE_MPI|#if 1|' source/adios2/toolkit/sst/dp/dp.c
+    fi
     local build_python_bindings=OFF
     mkdir -p build
     cd build
@@ -87,7 +90,14 @@ fi
 
 cd "$WORKDIR"
 
-CRAY_ACCEL_TARGET=none pip install --ignore-installed numpy mpi4py
+if [[ "$CLUSTER_NAME" = CRUSHER ]]; then
+    CRAY_ACCEL_TARGET=none pip install --ignore-installed numpy mpi4py
+elif [[ "$CLUSTER_NAME" = JUWELS_BOOSTER ]]; then
+    true # noop
+else
+    echo "UNKNOWN CLUSTER $CLUSTER_NAME" >&2
+    exit
+fi
 install_adios2
 install_openPMD
 build_PIC

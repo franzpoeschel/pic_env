@@ -3,15 +3,17 @@ pushd "$(dirname $BASH_SOURCE)" > /dev/null
 __PIC_PROFILE="$(pwd)/$(basename "$BASH_SOURCE")"
 export PREFIX="$(pwd)/local"
 
-if [[ ! -f env_pre.sh ]]; then
-    echo "CREATE $(pwd)/env_pre.sh IN ORDER TO SET ENVIRONMENT VARIABLE CLUSTER_NAME" \
+if [[ ! -f _env_pre.sh ]]; then
+    echo "CREATE $(pwd)/_env_pre.sh IN ORDER TO SET ENVIRONMENT VARIABLE CLUSTER_NAME" \
         >&2
 else
-    . env_pre.sh
+    . _env_pre.sh
     if [[ "$CLUSTER_NAME" = CRUSHER ]]; then
         . profile/hipcc.profile
     elif [[ "$CLUSTER_NAME" == JUWELS_BOOSTER ]]; then
         . profile/juwels_booster.profile
+    else
+        echo "UNKNOWN CLUSTER $CLUSTER_NAME"
     fi
     export PIC_PROFILE="$__PIC_PROFILE"
 
