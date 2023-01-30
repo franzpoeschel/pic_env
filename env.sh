@@ -10,18 +10,19 @@ else
     . _env_pre.sh
     if [[ "$CLUSTER_NAME" = CRUSHER ]]; then
         . profile/hipcc.profile
+        if [[ ! -d "$PREFIX" ]]; then
+            python -m pip install virtualenv
+            python -m virtualenv "$PREFIX"
+        fi
+        . "$PREFIX/bin/activate"
     elif [[ "$CLUSTER_NAME" == JUWELS_BOOSTER ]]; then
+        export PATH="$PREFIX/bin:$PATH"
         . profile/juwels_booster.profile
     else
         echo "UNKNOWN CLUSTER $CLUSTER_NAME"
     fi
     export PIC_PROFILE="$__PIC_PROFILE"
 
-    if [[ ! -d "$PREFIX" ]]; then
-        python -m pip install virtualenv
-        python -m virtualenv "$PREFIX"
-    fi
-    . "$PREFIX/bin/activate"
     for python_version in "$PREFIX/"lib{64,}/python*; do
         if [[ ! -d "$python_version" ]]; then
             continue
@@ -30,7 +31,6 @@ else
     done
     export WORKDIR="$(pwd)/build"
     export LD_LIBRARY_PATH="$PREFIX/lib:$PREFIX/lib64:$LD_LIBRARY_PATH"
-    # export PATH="$PREFIX/bin:$PATH"
     export CMAKE_PREFIX_PATH="$PREFIX:$CMAKE_PREFIX_PATH"
 fi
 
