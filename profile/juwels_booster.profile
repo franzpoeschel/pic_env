@@ -49,6 +49,8 @@ module load Boost/1.78.0
 module load SciPy-bundle/2021.10
 module load h5py
 
+module load git
+
 
 # "tbg" default options #######################################################
 #   - SLURM (sbatch)
