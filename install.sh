@@ -16,10 +16,7 @@ install_adios2() {
         cd ADIOS2
         git fetch --all
     fi
-    git checkout 3d498e5c423ec3830264b1cfdf7c0182dd0bddc7
-    if [[ "$CLUSTER_NAME" = CRUSHER ]]; then
-        sed -i 's|#ifdef SST_HAVE_MPI|#if 1|' source/adios2/toolkit/sst/dp/dp.c
-    fi
+    git checkout 9516443483e76c2edc9ec9b0538c5eac031ccf18
     local build_python_bindings=OFF
     mkdir -p build
     cd build
