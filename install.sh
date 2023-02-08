@@ -35,8 +35,7 @@ install_openPMD() {
     fi
     cd openPMD-api
     git fetch --all
-    git checkout pic_env
-    git reset --hard origin/pic_env
+    git checkout 9d6d78e9474b7507541b126aa834f907b8581ef8
     if [ ! -d build ]; then
         mkdir build
         cd build
