@@ -33,21 +33,20 @@ fi
 # General modules #############################################################
 #
 module purge
-module load Stages/2022
-module load GCC/11.2.0
-module load CUDA/11.5
-module load CMake/3.21.1
-module load ParaStationMPI/5.5.0-1
+module load Stages/2023
+module load GCC/11.3.0
+module load CUDA/11.7
+module load CMake/3.23.1
+module load ParaStationMPI/5.8.0-1
 module load mpi-settings/CUDA
-module load Python/3.9.6
-module load libpng/.1.6.37
+module load Python/3.10.4
+module load mpi4py/3.1.4
 
-module load HDF5/1.12.1
-module load Boost/1.78.0
+module load HDF5/1.12.2
+module load Boost/1.79.0
 
 # necessary for evaluations (NumPy, SciPy, Matplotlib, SymPy, Pandas, IPython)
-module load SciPy-bundle/2021.10
-module load h5py
+module load SciPy-bundle/2022.05
 
 module load git
 

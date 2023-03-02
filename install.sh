@@ -16,7 +16,7 @@ install_adios2() {
         cd ADIOS2
         git fetch --all
     fi
-    git checkout 9516443483e76c2edc9ec9b0538c5eac031ccf18
+    git checkout v2.9.0-rc1
     local build_python_bindings=OFF
     mkdir -p build
     cd build
